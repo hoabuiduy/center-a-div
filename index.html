@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Center a Div Example</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Initial styles for parent and child */
+    #parent {
+      width: 400px;
+      height: 300px;
+      background: #f0f0f0;
+      border: 1px solid #ccc;
+      margin: 40px auto;
+      position: relative;
+      transition: all 0.3s;
+    }
+    #child {
+      width: 100px;
+      height: 100px;
+      background: #4CAF50;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      border-radius: 8px;
+      transition: all 0.3s;
+    }
+    .controls {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .controls button {
+      margin: 0 4px;
+      padding: 8px 14px;
+      font-size: 15px;
+      border-radius: 4px;
+      border: 1px solid #888;
+      background: #fff;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .controls button.active,
+    .controls button:hover {
+      background: #e0e0e0;
+    }
+  </style>
+</head>
+<body>
+  <div class="controls">
+    <button id="flexBtn" class="active">Flexbox</button>
+    <button id="gridBtn">Grid</button>
+    <button id="marginBtn">Margin Auto</button>
+    <button id="absoluteBtn">Absolute Positioning</button>
+    <button id="resetBtn">Reset</button>
+  </div>
+  <div id="parent">
+    <div id="child">Centered</div>
+  </div>
+  <script type="module">
+    import {
+      centerWithFlexbox,
+      centerWithGrid,
+      centerWithMarginAuto,
+      centerWithAbsolute
+    } from './center-a-div.js';
+
+    const parent = document.getElementById('parent');
+    const child = document.getElementById('child');
+
+    function resetStyles() {
+      // Reset parent styles
+      parent.style.display = '';
+      parent.style.justifyContent = '';
+      parent.style.alignItems = '';
+      parent.style.position = '';
+      parent.style.height = '300px';
+      parent.style.gridTemplateColumns = '';
+      parent.style.placeItems = '';
+
+      // Reset child styles
+      child.style.position = '';
+      child.style.top = '';
+      child.style.left = '';
+      child.style.transform = '';
+      child.style.marginLeft = '';
+      child.style.marginRight = '';
+      child.style.display = 'flex';
+      child.style.width = '100px';
+    }
+
+    function setActive(btnId) {
+      document.querySelectorAll('.controls button').forEach(btn => btn.classList.remove('active'));
+      document.getElementById(btnId).classList.add('active');
+    }
+
+    document.getElementById('flexBtn').onclick = () => {
+      resetStyles();
+      centerWithFlexbox('#parent', '#child');
+      setActive('flexBtn');
+    };
+
+    document.getElementById('gridBtn').onclick = () => {
+      resetStyles();
+      centerWithGrid('#parent', '#child');
+      setActive('gridBtn');
+    };
+
+    document.getElementById('marginBtn').onclick = () => {
+      resetStyles();
+      // For margin auto, parent shouldn't be flex/grid/relative
+      centerWithMarginAuto('#child');
+      setActive('marginBtn');
+    };
+
+    document.getElementById('absoluteBtn').onclick = () => {
+      resetStyles();
+      centerWithAbsolute('#parent', '#child');
+      setActive('absoluteBtn');
+    };
+
+    document.getElementById('resetBtn').onclick = () => {
+      resetStyles();
+      setActive('resetBtn');
+    };
+
+    // Set default centering to Flexbox
+    centerWithFlexbox('#parent', '#child');
+  </script>
+</body>
+</html>
