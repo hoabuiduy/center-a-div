@@ -15,7 +15,7 @@ A simple collection of techniques and examples to center a `<div>` using HTML an
 - [License](#license)
 
 ## Introduction
-#sdfdfdsf
+## s#dfdfdsf
 
 Centering a `<div>` is one of the most common tasks when working with web layouts. There are several ways to achieve this with modern CSS. This repository showcases multiple methods so you can choose the one that best fits your project.
 
